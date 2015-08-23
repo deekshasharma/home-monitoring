@@ -11,7 +11,7 @@ public class RestApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        classes.add(RestEasyHelloWorldService.class);
+        classes.add(RestEndPoint.class);
         return Collections.unmodifiableSet(classes);
     }
 
