@@ -7,14 +7,14 @@ public interface MotionDAO {
     /**
      *
      * @param moduleId Unique Id of the module
-     * @param value reading from motion sensor
+     * @param reading reading from motion sensor
      */
-    public void saveMotionValue(String moduleId, String value);
+    public void saveMotionValue(String moduleId, int reading);
 
     /**
      *
      * @param moduleId Unique Id of the module
      * @return List of all readings from Motion Sensor
      */
-    public List<String> getMotionReadings(String moduleId);
+    public List<Integer> getMotionReadings(String moduleId);
 }

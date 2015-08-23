@@ -10,12 +10,12 @@ public interface SoundDAO {
      * @param moduleId Unique Id of the module
      * @param value reading from sound sensor
      */
-    public void saveSoundValue(String moduleId, String value);
+    public void saveSoundValue(String moduleId, int value);
 
     /**
      *
      * @param moduleId Unique Id of the module
      * @return List of all readings from sound Sensor
      */
-    public List<String> getSoundReadings(String moduleId);
+    public List<Integer> getSoundReadings(String moduleId);
 }

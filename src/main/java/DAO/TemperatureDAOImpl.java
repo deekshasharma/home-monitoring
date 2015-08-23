@@ -24,6 +24,6 @@ public class TemperatureDAOImpl implements TemperatureDAO {
     }
 
     public List<Integer> getTemperatureReadings(String moduleId) {
-        return null;
+        return moduleIdToTemp.get(moduleId);
     }
 }
