@@ -17,6 +17,7 @@ public class AlertService {
         String response = null;
         if (alertType.equals(ALERT_TEMPERATURE)){
 
+
             response = "Polling temperature";
         }else {
             response = "Polling "+ alertType;
