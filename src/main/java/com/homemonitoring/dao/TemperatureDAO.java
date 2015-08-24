@@ -1,4 +1,4 @@
-package DAO;
+package com.homemonitoring.dao;
 
 import java.util.List;
 

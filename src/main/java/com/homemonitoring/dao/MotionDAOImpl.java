@@ -1,4 +1,4 @@
-package DAO;
+package com.homemonitoring.dao;
 
 import com.google.common.base.Preconditions;
 
@@ -21,7 +21,6 @@ public class MotionDAOImpl implements MotionDAO {
             readings.add(reading);
             moduleIdToMotion.put(moduleId, readings);
         }
-
     }
 
     public List<Integer> getMotionReadings(String moduleId) {
