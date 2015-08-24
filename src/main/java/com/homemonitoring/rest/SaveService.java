@@ -1,6 +1,5 @@
 package com.homemonitoring.rest;
 
-import DAO.*;
 import com.homemonitoring.dao.*;
 
 import javax.ws.rs.GET;
@@ -19,8 +18,14 @@ public class SaveService {
     @GET
     @Path("{moduleId}")
     public Response responseMessage(@PathParam("moduleId") String moduleId, @QueryParam("reading") String reading, @QueryParam("type") String type) {
-
-        String response = "BreadBoardId = " + moduleId + " & Temperature = " + reading + " & Type = " + type;
+        if (type.equalsIgnoreCase("temp")){
+            saveTemperatureReading(moduleId,reading);
+        }else if (type.equalsIgnoreCase("motion")){
+            saveMotionReading(moduleId,reading);
+        }else {
+            saveSoundReading(moduleId,reading);
+        }
+        String response = type + " saved";
         return Response.status(200).entity(response).build();
     }
 
