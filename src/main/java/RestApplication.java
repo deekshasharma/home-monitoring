@@ -1,3 +1,7 @@
+import com.homemonitoring.rest.AlertService;
+import com.homemonitoring.rest.GraphService;
+import com.homemonitoring.rest.SaveService;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Collections;
@@ -11,7 +15,9 @@ public class RestApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        classes.add(RestEndPoint.class);
+        classes.add(SaveService.class);
+        classes.add(AlertService.class);
+        classes.add(GraphService.class);
         return Collections.unmodifiableSet(classes);
     }
 
