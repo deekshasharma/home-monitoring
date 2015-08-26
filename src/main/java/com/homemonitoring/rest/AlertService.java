@@ -11,7 +11,6 @@ import javax.ws.rs.core.Response;
 public class AlertService {
 
     private static final String ALERT_TEMPERATURE = "temperature";
-    private static final String ALERT_SOUND = "sound";
 
     @GET
     @Path("{moduleId}")
