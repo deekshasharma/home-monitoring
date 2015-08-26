@@ -11,14 +11,14 @@ import javax.ws.rs.core.Response;
 @Path("save")
 public class SaveService {
 
-    private TemperatureDAO temperatureDAO = new TemperatureDAOImpl();
-    private SoundDAO soundDAO = new SoundDAOImpl();
-    private MotionDAO motionDAO = new MotionDAOImpl();
+    private static TemperatureDAO temperatureDAO = new TemperatureDAOImpl();
+    private static SoundDAO soundDAO = new SoundDAOImpl();
+    private static MotionDAO motionDAO = new MotionDAOImpl();
 
     @GET
     @Path("{moduleId}")
     public Response responseMessage(@PathParam("moduleId") String moduleId, @QueryParam("reading") String reading, @QueryParam("type") String type) {
-        if (type.equalsIgnoreCase("temp")){
+        if (type.equalsIgnoreCase("temperature")){
             saveTemperatureReading(moduleId,reading);
         }else if (type.equalsIgnoreCase("motion")){
             saveMotionReading(moduleId,reading);
