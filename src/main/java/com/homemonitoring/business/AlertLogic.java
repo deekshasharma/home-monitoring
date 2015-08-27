@@ -11,9 +11,9 @@ public class AlertLogic {
 
     private static final int THRESHOLD_TEMPERATURE = 200;
 
-    private TemperatureDAO temperatureDAO = new TemperatureDAOImpl();
-    private MotionDAO motionDAO = new MotionDAOImpl();
-    private SoundDAO soundDAO = new SoundDAOImpl();
+    private static TemperatureDAO temperatureDAO = new TemperatureDAOImpl();
+    private static MotionDAO motionDAO = new MotionDAOImpl();
+    private static SoundDAO soundDAO = new SoundDAOImpl();
 
     /**
      * @param moduleId
@@ -36,13 +36,13 @@ public class AlertLogic {
             throw new NullPointerException("temperature readings must not be null or empty");
         }else {
             int counter = 1;
-            int size = temperatureReadings.size();
+            int lastIndex = temperatureReadings.size() - 1;
             while (counter <= 5) {
-                int temperature = temperatureReadings.get(size);
+                int temperature = temperatureReadings.get(lastIndex);
                 if (temperature < THRESHOLD_TEMPERATURE) {
                     return false;
                 }
-                size--;
+                lastIndex--;
                 counter++;
             }
         }
@@ -54,6 +54,7 @@ public class AlertLogic {
      * @return true if no motion is detected at home
      */
     private boolean isNoMotionDetected(String moduleId) {
+        Preconditions.checkArgument(moduleId != null);
         List<Integer> motionReadings = motionDAO.getMotionReadings(moduleId);
         if (motionReadings.get(motionReadings.size() - 1) == 0) {
             return true;

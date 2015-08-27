@@ -13,15 +13,15 @@ public class AlertService {
     private static final String ALERT_TEMPERATURE = "temperature";
 
     @GET
-    @Path("{moduleId}")
+    @Path("{moduleId}/{alertType}")
     public Response sendAlert(@PathParam("moduleId") String moduleId,@PathParam("alertType") String alertType){
         String response = null;
-        if (alertType.equals(ALERT_TEMPERATURE)){
+        if (alertType.equalsIgnoreCase(ALERT_TEMPERATURE)){
             if (checkHeatAlert(moduleId)) {
                 response = "You forgot to switch off some electronic appliance at home!";
             }
         }else {
-            response = "Polling "+ alertType;
+            response = "Everything is okay at Home ";
         }
             return Response.status(Response.Status.OK).entity(response).build();
     }

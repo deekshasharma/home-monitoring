@@ -15,8 +15,8 @@ public class RestApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        classes.add(SaveService.class);
         classes.add(AlertService.class);
+        classes.add(SaveService.class);
         classes.add(GraphService.class);
         return Collections.unmodifiableSet(classes);
     }

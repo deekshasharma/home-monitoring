@@ -27,6 +27,7 @@ public class TemperatureDAOImpl implements TemperatureDAO {
             readings.add(reading);
             moduleIdToTemp.put(moduleId, readings);
         }
+        System.out.println("TempMap => "+moduleIdToTemp);
     }
 
     /**
