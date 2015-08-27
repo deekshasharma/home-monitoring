@@ -1,5 +1,6 @@
 package com.homemonitoring.rest;
 
+import com.homemonitoring.business.SaveSensorData;
 import com.homemonitoring.dao.*;
 
 import javax.ws.rs.GET;
@@ -11,45 +12,21 @@ import javax.ws.rs.core.Response;
 @Path("save")
 public class SaveService {
 
-    private static TemperatureDAO temperatureDAO = new TemperatureDAOImpl();
-    private static SoundDAO soundDAO = new SoundDAOImpl();
-    private static MotionDAO motionDAO = new MotionDAOImpl();
+    private static SaveSensorData saveSensorData = new SaveSensorData();
 
     @GET
     @Path("{moduleId}")
     public Response responseMessage(@PathParam("moduleId") String moduleId, @QueryParam("reading") String reading, @QueryParam("type") String type) {
-        if (type.equalsIgnoreCase("temperature")){
-            saveTemperatureReading(moduleId,reading);
-        }else if (type.equalsIgnoreCase("motion")){
-            saveMotionReading(moduleId,reading);
-        }else {
-            saveSoundReading(moduleId,reading);
+        if (type.equalsIgnoreCase("temperature")) {
+            saveSensorData.saveTemperatureReading(moduleId, reading);
+        } else if (type.equalsIgnoreCase("motion")) {
+            saveSensorData.saveMotionReading(moduleId, reading);
+        } else {
+            saveSensorData.saveSoundReading(moduleId, reading);
         }
         String response = type + " saved";
         return Response.status(200).entity(response).build();
     }
 
-    /**
-     * @param moduleId
-     * @param temperatureReading
-     */
-    private void saveTemperatureReading(String moduleId, String temperatureReading) {
-        temperatureDAO.saveTemperatureReading(moduleId, Integer.parseInt(temperatureReading));
-    }
 
-    /**
-     * @param moduleId
-     * @param soundReading
-     */
-    private void saveSoundReading(String moduleId, String soundReading) {
-        soundDAO.saveSoundValue(moduleId, Integer.parseInt(soundReading));
     }
-
-    /**
-     * @param moduleId
-     * @param motionReading
-     */
-    private void saveMotionReading(String moduleId, String motionReading) {
-        motionDAO.saveMotionValue(moduleId, Integer.parseInt(motionReading));
-    }
-}
