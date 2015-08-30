@@ -14,21 +14,13 @@ import java.sql.SQLException;
 public class SaveService {
 
     private static SaveSensorData saveSensorData = new SaveSensorData();
-    private DBConnection dbConnection = DBConnection.getInstance();
-    private DBQueries dbQueries;
 
-    public SaveService() throws SQLException {
-        dbQueries = new DBQueries(dbConnection);
-        dbQueries.createTables();
-    }
 
     @GET
     @Path("{moduleId}")
     public Response responseMessage(@PathParam("moduleId") String moduleId, @QueryParam("reading") String reading, @QueryParam("type") String type) throws SQLException {
         if (type.equalsIgnoreCase("temperature")) {
-            dbQueries.insertTemperature(moduleId,reading);
-
-//            saveSensorData.saveTemperatureReading(moduleId, reading);
+            saveSensorData.saveTemperatureReading(moduleId, reading);
         } else if (type.equalsIgnoreCase("motion")) {
             saveSensorData.saveMotionReading(moduleId, reading);
         } else {

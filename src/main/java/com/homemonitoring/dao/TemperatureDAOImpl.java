@@ -1,41 +1,60 @@
 package com.homemonitoring.dao;
 
-import com.google.common.base.Preconditions;
+import com.homemonitoring.model.Temperature;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TemperatureDAOImpl implements TemperatureDAO {
 
-    private Map<String, List<Integer>> moduleIdToTemp = new HashMap<String, List<Integer>>();
+    private Statement statement;
+    private Connection connection;
+    private static final String TEMP_TABLE = "temperature";
+    private DBConnection dbConnection = DBConnection.getInstance();
+    private CreateDBTables dbTables;
 
-    /**
-     *
-     * @param moduleId Unique Id of the module
-     * @param reading reading from temperature sensor
-     */
-    public void saveTemperatureReading(String moduleId, int reading) {
-        Preconditions.checkArgument(moduleId != null);
-        if (moduleIdToTemp.containsKey(moduleId)) {
-            List<Integer> readings = moduleIdToTemp.get(moduleId);
-            readings.add(reading);
-            moduleIdToTemp.put(moduleId, readings);
-        } else {
-            List<Integer> readings = new ArrayList<Integer>();
-            readings.add(reading);
-            moduleIdToTemp.put(moduleId, readings);
-        }
-        System.out.println("TempMap => "+moduleIdToTemp);
+    public TemperatureDAOImpl() throws SQLException {
+        dbTables = new CreateDBTables(dbConnection);
+        dbTables.create();
+        connection = dbConnection.getConnection();
+        statement = connection.createStatement();
     }
 
     /**
-     *
      * @param moduleId Unique Id of the module
-     * @return List of all readings for a given moduleId
+     * @param reading  reading from temperature sensor
      */
-    public List<Integer> getTemperatureReadings(String moduleId) {
-        return moduleIdToTemp.get(moduleId);
+    public void insert(String moduleId, String reading) {
+        String insertStatement = "INSERT INTO " + TEMP_TABLE + " (module_id,reading,create_date)" + " VALUES(" + moduleId + "," + reading + ",now())";
+        try {
+            statement.executeUpdate(insertStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @return List of all Temperatures
+     */
+    public List<Temperature> findAll() {
+        ResultSet rs;
+        List<Temperature> temperatures = new ArrayList<Temperature>();
+        try {
+            rs = statement.executeQuery("SELECT * FROM " + TEMP_TABLE);
+            while (rs.next()) {
+                Temperature temperature = new Temperature(rs.getString("module_id"),rs.getString("reading"),rs.getString("create_date"));
+                temperatures.add(temperature);
+                System.out.println(rs.getString("reading"));
+                System.out.println(rs.getString("module_id"));
+                System.out.println(rs.getDate("create_date"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return temperatures;
     }
 }

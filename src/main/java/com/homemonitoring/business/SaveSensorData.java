@@ -2,9 +2,20 @@ package com.homemonitoring.business;
 
 import com.homemonitoring.dao.*;
 
+import java.sql.SQLException;
+
 public class SaveSensorData {
 
-    private static TemperatureDAO temperatureDAO = new TemperatureDAOImpl();
+    private static TemperatureDAO temperatureDAO;
+
+    static {
+        try {
+            temperatureDAO = new TemperatureDAOImpl();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static SoundDAO soundDAO = new SoundDAOImpl();
     private static MotionDAO motionDAO = new MotionDAOImpl();
 
@@ -13,8 +24,8 @@ public class SaveSensorData {
      * @param moduleId
      * @param temperatureReading
      */
-    public void saveTemperatureReading(String moduleId, String temperatureReading) {
-        temperatureDAO.saveTemperatureReading(moduleId, Integer.parseInt(temperatureReading));
+    public void saveTemperatureReading(String moduleId, String temperatureReading) throws SQLException {
+        temperatureDAO.insert(moduleId,temperatureReading);
     }
 
     /**

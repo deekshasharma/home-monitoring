@@ -1,5 +1,7 @@
 package com.homemonitoring.dao;
 
+import com.homemonitoring.model.Temperature;
+
 import java.util.List;
 
 public interface TemperatureDAO {
@@ -9,12 +11,11 @@ public interface TemperatureDAO {
      * @param moduleId Unique Id of the module
      * @param reading reading from temperature sensor
      */
-    public void saveTemperatureReading(String moduleId, int reading);
+    public void insert(String moduleId, String reading);
 
     /**
      *
-     * @param moduleId Unique Id of the module
      * @return List of all readings from temperature Sensor
      */
-    public List<Integer> getTemperatureReadings(String moduleId);
+    public List<Temperature> findAll();
 }
