@@ -8,17 +8,27 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 
 @Path("save")
 public class SaveService {
 
     private static SaveSensorData saveSensorData = new SaveSensorData();
+    private DBConnection dbConnection = DBConnection.getInstance();
+    private DBQueries dbQueries;
+
+    public SaveService() throws SQLException {
+        dbQueries = new DBQueries(dbConnection);
+        dbQueries.createTables();
+    }
 
     @GET
     @Path("{moduleId}")
-    public Response responseMessage(@PathParam("moduleId") String moduleId, @QueryParam("reading") String reading, @QueryParam("type") String type) {
+    public Response responseMessage(@PathParam("moduleId") String moduleId, @QueryParam("reading") String reading, @QueryParam("type") String type) throws SQLException {
         if (type.equalsIgnoreCase("temperature")) {
-            saveSensorData.saveTemperatureReading(moduleId, reading);
+            dbQueries.insertTemperature(moduleId,reading);
+
+//            saveSensorData.saveTemperatureReading(moduleId, reading);
         } else if (type.equalsIgnoreCase("motion")) {
             saveSensorData.saveMotionReading(moduleId, reading);
         } else {
@@ -29,4 +39,4 @@ public class SaveService {
     }
 
 
-    }
+}
