@@ -1,4 +1,5 @@
 import com.homemonitoring.rest.AlertService;
+import com.homemonitoring.rest.CloseConnectionService;
 import com.homemonitoring.rest.GraphService;
 import com.homemonitoring.rest.SaveService;
 
@@ -18,6 +19,7 @@ public class RestApplication extends Application {
         classes.add(AlertService.class);
         classes.add(SaveService.class);
         classes.add(GraphService.class);
+        classes.add(CloseConnectionService.class);
         return Collections.unmodifiableSet(classes);
     }
 

@@ -25,7 +25,7 @@ public class SaveSensorData {
      * @param temperatureReading
      */
     public void saveTemperatureReading(String moduleId, String temperatureReading) throws SQLException {
-        temperatureDAO.insert(moduleId,temperatureReading);
+        temperatureDAO.insert(moduleId, temperatureReading);
     }
 
     /**
@@ -43,4 +43,5 @@ public class SaveSensorData {
     public void saveMotionReading(String moduleId, String motionReading) {
         motionDAO.saveMotionValue(moduleId, Integer.parseInt(motionReading));
     }
+
 }
