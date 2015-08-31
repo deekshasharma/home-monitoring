@@ -14,9 +14,9 @@ public class AlertService {
     private static AlertLogic alertLogic = new AlertLogic();
 
     @GET
-    @Path("{moduleId}/{alertType}")
-    public Response sendAlert(@PathParam("moduleId") String moduleId,@PathParam("alertType") String alertType){
-        String response = null;
+    @Path("{alertType}")
+    public Response sendAlert(@PathParam("alertType") String alertType){
+        String response;
         if (alertType.equalsIgnoreCase(ALERT_TEMPERATURE)){
 //            if (checkHeatAlert(moduleId))
             response = alertLogic.sendAlert();

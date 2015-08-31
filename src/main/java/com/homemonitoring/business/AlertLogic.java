@@ -14,7 +14,7 @@ public class AlertLogic {
     private static final int THRESHOLD_TEMPERATURE = 200;
 
     private static TemperatureDAO temperatureDAO;
-    private static Gson gson;
+    private static Gson gson = new Gson();
 
     static {
         try {
