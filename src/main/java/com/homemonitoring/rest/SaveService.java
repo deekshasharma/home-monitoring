@@ -19,7 +19,9 @@ public class SaveService {
     @GET
     @Path("{moduleId}")
     public Response responseMessage(@PathParam("moduleId") String moduleId, @QueryParam("reading") String reading, @QueryParam("type") String type) throws SQLException {
-        if (type.equalsIgnoreCase("temperature")) {
+        if (type.equalsIgnoreCase("temperature"))
+        {
+            System.out.println("Robert Sending temperature "+reading);
             saveSensorData.saveTemperatureReading(moduleId, reading);
         } else if (type.equalsIgnoreCase("motion")) {
             saveSensorData.saveMotionReading(moduleId, reading);

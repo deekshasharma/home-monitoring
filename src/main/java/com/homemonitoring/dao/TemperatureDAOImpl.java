@@ -1,6 +1,8 @@
 package com.homemonitoring.dao;
 
+import com.homemonitoring.Attributes.DBAttributes;
 import com.homemonitoring.model.Temperature;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,6 +16,8 @@ public class TemperatureDAOImpl implements TemperatureDAO {
     private Statement statement;
     private Connection connection;
     private static final String TEMP_TABLE = "temperature";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM " + TEMP_TABLE;
+    private static final String SELECT_RECENT = "SELECT * FROM "+TEMP_TABLE;//+ " ORDER BY "+ DBAttributes.CREATE_DATE.getColumnName()+" DESC;";
     private DBConnection dbConnection = DBConnection.getInstance();
     private CreateDBTables dbTables;
 
@@ -29,7 +33,8 @@ public class TemperatureDAOImpl implements TemperatureDAO {
      * @param reading  reading from temperature sensor
      */
     public void insert(String moduleId, String reading) {
-        String insertStatement = "INSERT INTO " + TEMP_TABLE + " (module_id,reading,create_date)" + " VALUES(" + moduleId + "," + reading + ",now())";
+        String insertStatement = "INSERT INTO " + TEMP_TABLE + " VALUES(" +"'"+ moduleId + "'"+"," + "'"+reading + "'"+",now())";
+        System.out.println("Inserting this => "+insertStatement);
         try {
             statement.executeUpdate(insertStatement);
         } catch (SQLException e) {
@@ -41,20 +46,49 @@ public class TemperatureDAOImpl implements TemperatureDAO {
      * @return List of all Temperatures
      */
     public List<Temperature> findAll() {
-        ResultSet rs;
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery(SELECT_ALL_QUERY);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getTemperaturesFromResultSet(rs);
+    }
+
+    /**
+     * Creates the list of Temperature objects from the ResultSet
+     * @param resultSet Result Set retrieved from Database
+     * @return List of Temperature objects
+     */
+    private List<Temperature> getTemperaturesFromResultSet(ResultSet resultSet){
         List<Temperature> temperatures = new ArrayList<Temperature>();
         try {
-            rs = statement.executeQuery("SELECT * FROM " + TEMP_TABLE);
-            while (rs.next()) {
-                Temperature temperature = new Temperature(rs.getString("module_id"),rs.getString("reading"),rs.getString("create_date"));
+            while (resultSet.next()) {
+                Temperature temperature = new Temperature(resultSet.getString(DBAttributes.MODULE_ID.getColumnName()),
+                        resultSet.getString(DBAttributes.READING.getColumnName()),
+                        resultSet.getString(DBAttributes.CREATE_DATE.getColumnName()));
                 temperatures.add(temperature);
-                System.out.println(rs.getString("reading"));
-                System.out.println(rs.getString("module_id"));
-                System.out.println(rs.getDate("create_date"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return temperatures;
+    }
+
+    /**
+     *
+     * @return List of last 10 temperatures
+     */
+    public List<Temperature> findRecent() {
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery(SELECT_RECENT);
+            System.out.println(rs.getString("reading"));
+            System.out.println(rs.getString("module_id"));
+            System.out.println(rs.getString("create_date"));
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getTemperaturesFromResultSet(rs);
     }
 }

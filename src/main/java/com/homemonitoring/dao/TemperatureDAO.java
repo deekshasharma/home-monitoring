@@ -11,11 +11,13 @@ public interface TemperatureDAO {
      * @param moduleId Unique Id of the module
      * @param reading reading from temperature sensor
      */
-    public void insert(String moduleId, String reading);
+     void insert(String moduleId, String reading);
 
     /**
      *
      * @return List of all readings from temperature Sensor
      */
-    public List<Temperature> findAll();
+     List<Temperature> findAll();
+
+    List<Temperature> findRecent();
 }

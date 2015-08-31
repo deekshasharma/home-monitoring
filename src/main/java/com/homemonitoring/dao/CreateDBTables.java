@@ -19,9 +19,9 @@ public class CreateDBTables {
     }
 
     public synchronized void create() throws SQLException{
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +TEMP_TABLE+" (module_id varchar(10), reading varchar(10), create_date TIMESTAMP)");
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS "+SOUND_TABLE+" (module_id varchar(10), reading varchar(10), create_date TIMESTAMP)");
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS "+MOTION_TABLE+" (module_id varchar(10), reading varchar(10), create_date TIMESTAMP)");
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +TEMP_TABLE+" (module_id char(50), reading varchar(10), create_date TIMESTAMP)");
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS "+SOUND_TABLE+" (module_id nvarchar(50), reading varchar(10), create_date TIMESTAMP)");
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS "+MOTION_TABLE+" (module_id nvarchar(50), reading varchar(10), create_date TIMESTAMP)");
     }
 
 //    public void insertTemperature(String moduleId, String reading) throws SQLException {

@@ -22,11 +22,9 @@ public class GetSensorData {
     }
 
     /**
-     *
-     * @return JSON of temperature
+     * @return JSON of all temperatures for Graph
      */
     public String getTemperatureData() {
-        List<Temperature> temperatures = temperatureDAO.findAll();
-        return (gson.toJson(temperatures));
+        return (gson.toJson(temperatureDAO.findAll()));
     }
 }

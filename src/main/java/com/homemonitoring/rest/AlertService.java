@@ -1,5 +1,7 @@
 package com.homemonitoring.rest;
 
+import com.homemonitoring.business.AlertLogic;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -9,6 +11,7 @@ import javax.ws.rs.core.Response;
 public class AlertService {
 
     private static final String ALERT_TEMPERATURE = "temperature";
+    private static AlertLogic alertLogic = new AlertLogic();
 
     @GET
     @Path("{moduleId}/{alertType}")
@@ -16,14 +19,17 @@ public class AlertService {
         String response = null;
         if (alertType.equalsIgnoreCase(ALERT_TEMPERATURE)){
 //            if (checkHeatAlert(moduleId))
-            {
-                response = "You forgot to switch off some electronic appliance at home!";
-            }
+            response = alertLogic.sendAlert();
+//            {
+//                response = "You forgot to switch off some electronic appliance at home!";
+//            }
         }else {
             response = "Everything is okay at Home ";
         }
             return Response.status(Response.Status.OK).entity(response).build();
     }
+
+
 
     /**
      *
