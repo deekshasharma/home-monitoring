@@ -14,10 +14,14 @@ public interface TemperatureDAO {
      void insert(String moduleId, String reading);
 
     /**
-     *
+     *Get all the temperature readings
      * @return List of all readings from temperature Sensor
      */
      List<Temperature> findAll();
 
+    /**
+     * Get the most recent temperature readings
+     * @return
+     */
     List<Temperature> findRecent();
 }

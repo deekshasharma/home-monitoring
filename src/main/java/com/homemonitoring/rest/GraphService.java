@@ -1,9 +1,6 @@
 package com.homemonitoring.rest;
 
 import com.homemonitoring.business.GetSensorData;
-import com.homemonitoring.dao.DBConnection;
-import com.homemonitoring.dao.CreateDBTables;
-import com.homemonitoring.dao.TemperatureDAOImpl;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

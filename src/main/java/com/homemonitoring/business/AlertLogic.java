@@ -3,6 +3,7 @@ package com.homemonitoring.business;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.homemonitoring.dao.*;
+import com.homemonitoring.model.Temperature;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.sql.SQLException;
@@ -25,11 +26,9 @@ public class AlertLogic {
     }
 
 
-    public String sendAlert(){
+    public String sendAlert() {
         return gson.toJson(temperatureDAO.findRecent());
     }
-//    private static MotionDAO motionDAO = new MotionDAOImpl();
-//    private static SoundDAO soundDAO = new SoundDAOImpl();
 
     /**
      * @param moduleId
@@ -43,28 +42,22 @@ public class AlertLogic {
 //    }
 
     /**
-     * @param moduleId
      * @return true if the last 5 temperature readings exceeds threshold
      */
-//    private boolean isHeatAboveThreshold(String moduleId) {
-//        List<Integer> temperatureReadings = temperatureDAO.getTemperatureReadings(moduleId);
-//        if (CollectionUtils.isEmpty(temperatureReadings)) {
-//            throw new NullPointerException("temperature readings must not be null or empty");
-//        }else {
-//            int counter = 1;
-//            int lastIndex = temperatureReadings.size() - 1;
-//            while (counter <= 5) {
-//                int temperature = temperatureReadings.get(lastIndex);
-//                if (temperature < THRESHOLD_TEMPERATURE) {
-//                    return false;
-//                }
-//                lastIndex--;
-//                counter++;
-//            }
-//        }
-//        return true;
-//    }
-//
+    private boolean isHeatAboveThreshold() {
+        List<Temperature> temperatures = temperatureDAO.findRecent();
+        if (CollectionUtils.isEmpty(temperatures)) {
+            throw new NullPointerException("No temperature readings are present in DB");
+        } else {
+            for (Temperature temperature : temperatures) {
+                if ((Integer.parseInt(temperature.getReading())) <= THRESHOLD_TEMPERATURE) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
     /**
      * @param moduleId
      * @return true if no motion is detected at home

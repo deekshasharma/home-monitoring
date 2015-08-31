@@ -1,5 +1,7 @@
 package com.homemonitoring.dao;
 
+import com.homemonitoring.model.Motion;
+
 import java.util.List;
 
 public interface MotionDAO {
@@ -9,12 +11,18 @@ public interface MotionDAO {
      * @param moduleId Unique Id of the module
      * @param reading reading from motion sensor
      */
-    public void saveMotionValue(String moduleId, int reading);
+    void insert(String moduleId, String reading);
 
     /**
-     *
-     * @param moduleId Unique Id of the module
-     * @return List of all readings from Motion Sensor
+     *Get all the motion readings
+     * @return List of all readings from temperature Sensor
      */
-    public List<Integer> getMotionReadings(String moduleId);
+    List<Motion> findAll();
+
+    /**
+     * Get the most recent motion readings
+     * @return
+     */
+    List<Motion> findRecent();
+
 }

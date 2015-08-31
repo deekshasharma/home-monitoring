@@ -2,7 +2,6 @@ package com.homemonitoring.dao;
 
 import com.homemonitoring.Attributes.DBAttributes;
 import com.homemonitoring.model.Temperature;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,11 +18,8 @@ public class TemperatureDAOImpl implements TemperatureDAO {
     private static final String SELECT_ALL_QUERY = "SELECT * FROM " + TEMP_TABLE;
     private static final String SELECT_RECENT = "SELECT * FROM "+TEMP_TABLE+ " ORDER BY "+ DBAttributes.CREATE_DATE.getColumnName()+" DESC LIMIT 0,2;";
     private DBConnection dbConnection = DBConnection.getInstance();
-    private CreateDBTables dbTables;
 
     public TemperatureDAOImpl() throws SQLException {
-        dbTables = new CreateDBTables(dbConnection);
-        dbTables.create();
         connection = dbConnection.getConnection();
         statement = connection.createStatement();
     }
@@ -34,7 +30,7 @@ public class TemperatureDAOImpl implements TemperatureDAO {
      */
     public void insert(String moduleId, String reading) {
         String insertStatement = "INSERT INTO " + TEMP_TABLE + " VALUES(" +"'"+ moduleId + "'"+"," + "'"+reading + "'"+",now())";
-        System.out.println("Inserting this => "+insertStatement);
+        System.out.println("Inserting temp => "+insertStatement);
         try {
             statement.executeUpdate(insertStatement);
         } catch (SQLException e) {

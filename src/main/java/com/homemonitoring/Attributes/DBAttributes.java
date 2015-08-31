@@ -1,7 +1,5 @@
 package com.homemonitoring.Attributes;
 
-import com.homemonitoring.dao.DBConnection;
-
 public enum DBAttributes {
     MODULE_ID("module_id"),
     READING("reading"),
