@@ -41,14 +41,13 @@ public class GetSensorData {
     }
 
     /**
-     *
      * @return JSON of all motions for Graph
      */
-    public String getMotionData(){
+    public String getMotionData() {
         return (gson.toJson(motionDAO.findAll()));
     }
 
-    public String getSoundData(){
+    public String getSoundData() {
         return (gson.toJson(soundDAO.findAll()));
     }
 }

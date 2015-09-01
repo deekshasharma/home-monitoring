@@ -51,6 +51,7 @@
                 <version>2.4</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>homemonitoring</warName>
                 </configuration>
             </plugin>
 

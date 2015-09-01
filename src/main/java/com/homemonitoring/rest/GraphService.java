@@ -26,7 +26,7 @@ public class GraphService {
 
     @GET
     @Path("sound")
-    public Response getSoundResponse(){
+    public Response getSoundResponse() {
         return Response.ok().entity(getSensorData.getSoundData()).build();
     }
 }
