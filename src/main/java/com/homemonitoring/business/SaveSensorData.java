@@ -26,7 +26,15 @@ public class SaveSensorData {
         }
     }
 
-    private static SoundDAO soundDAO = new SoundDAOImpl();
+    private static SoundDAO soundDAO;
+
+    static {
+        try {
+            soundDAO = new SoundDAOImpl();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param moduleId
@@ -36,13 +44,13 @@ public class SaveSensorData {
         temperatureDAO.insert(moduleId, temperatureReading);
     }
 
-//    /**
-//     * @param moduleId
-//     * @param soundReading
-//     */
-//    public void saveSoundReading(String moduleId, String soundReading) {
-//        soundDAO.saveSoundValue(moduleId, Integer.parseInt(soundReading));
-//    }
+    /**
+     * @param moduleId
+     * @param soundReading
+     */
+    public void saveSoundReading(String moduleId, String soundReading) {
+        soundDAO.insert(moduleId, Integer.parseInt(soundReading));
+    }
 
     /**
      * @param moduleId

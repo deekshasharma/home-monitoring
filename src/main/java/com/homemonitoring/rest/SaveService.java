@@ -28,7 +28,7 @@ public class SaveService {
         } else if (type.equalsIgnoreCase("motion")) {
             saveSensorData.saveMotionReading(moduleId, reading);
         } else {
-//            saveSensorData.saveSoundReading(moduleId, reading);
+            saveSensorData.saveSoundReading(moduleId, reading);
         }
         String response = type + " saved";
         return Response.status(200).entity(response).build();

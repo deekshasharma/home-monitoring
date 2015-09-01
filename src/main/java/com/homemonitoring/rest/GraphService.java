@@ -15,8 +15,18 @@ public class GraphService {
     @GET
     @Path("temperature")
     public Response getTemperatureResponse() throws SQLException {
-        String temperatureJson = getSensorData.getTemperatureData();
-        return Response.ok().entity(temperatureJson).build();
+        return Response.ok().entity(getSensorData.getTemperatureData()).build();
     }
 
+    @GET
+    @Path("motion")
+    public Response getMotionResponse() throws SQLException {
+        return Response.ok().entity(getSensorData.getMotionData()).build();
+    }
+
+    @GET
+    @Path("sound")
+    public Response getSoundResponse(){
+        return Response.ok().entity(getSensorData.getSoundData()).build();
+    }
 }
