@@ -2,9 +2,12 @@ package com.homemonitoring.business;
 
 import com.google.gson.Gson;
 import com.homemonitoring.dao.*;
+import com.homemonitoring.model.Sound;
 import com.homemonitoring.model.Temperature;
 
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class GetSensorData {
@@ -37,7 +40,9 @@ public class GetSensorData {
      * @return JSON of all temperatures for Graph
      */
     public String getTemperatureData() {
-        return (gson.toJson(temperatureDAO.findRecent()));
+        List<Temperature> temperatures = temperatureDAO.findRecent();
+        Collections.reverse(temperatures);
+        return (gson.toJson(temperatures));
     }
 
     /**
@@ -52,6 +57,8 @@ public class GetSensorData {
      * @return JSON of all sounds for graph
      */
     public String getSoundData() {
-        return (gson.toJson(soundDAO.findRecent()));
+        List<Sound> sounds = soundDAO.findRecent();
+        Collections.reverse(sounds);
+        return (gson.toJson(sounds));
     }
 }

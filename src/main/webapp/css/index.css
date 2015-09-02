@@ -1,0 +1,46 @@
+body {
+  width: 100%;
+  text-align: center;
+}
+
+.alertTemperature, .alertSound {
+  height: 3em;
+  line-height: 100px;
+  text-align: center;
+  padding-top: 1em
+}
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.alertTemperature {
+  background-color: rgb(231, 130, 195)
+}
+
+.alertSound {
+  background-color: rgb(76, 237, 160);
+  margin-bottom: 5em;
+}
+
+.graphs {
+  margin-top: 10em;
+}
+
+.graphTemperature, .graphSound {
+  display: inline-block;
+  width: 35em;
+}
+
+.graphTemperature {
+  /*background-color: rgb(22, 143, 170);*/
+  margin-left: -5em;
+  margin-right: 5em;
+}
+
+.graphSound {
+  /*background-color: rgb(18, 200, 103);*/
+  margin-left: 5em;
+  margin-right: -5em;
+}

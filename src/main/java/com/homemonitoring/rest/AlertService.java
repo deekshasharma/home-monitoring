@@ -14,11 +14,11 @@ public class AlertService {
     @GET
     @Path("temperature")
     public Response alertTemperature() {
-        String response;
+        boolean response;
         if (alertLogic.sendHeatAlert()) {
-            response = "You forgot to switch off some electronic appliance at home!";
+            response = true;
         } else {
-            response = "Everything is okay at Home ";
+            response = false;
         }
         return Response.status(Response.Status.OK).entity(response).build();
     }
@@ -26,11 +26,11 @@ public class AlertService {
     @GET
     @Path("sound")
     public Response alertSound() {
-        String response;
+        boolean response;
         if (alertLogic.sendSoundAlert()) {
-            response = "May be your faucet is running";
+            response = true;
         } else {
-            response = "Sound is okay at Home ";
+            response = false;
         }
         return Response.status(Response.Status.OK).entity(response).build();
     }
