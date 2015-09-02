@@ -17,7 +17,7 @@ public class SoundDAOImpl implements SoundDAO {
     private Connection connection;
     private static final String SOUND_TABLE = "sound";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM " + SOUND_TABLE;
-    private static final String SELECT_RECENT = "SELECT * FROM " + SOUND_TABLE + " ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,1;";
+    private static final String SELECT_RECENT = "SELECT * FROM " + SOUND_TABLE + " ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,5;";
     private DBConnection dbConnection = DBConnection.getInstance();
 
     public SoundDAOImpl() throws SQLException {
