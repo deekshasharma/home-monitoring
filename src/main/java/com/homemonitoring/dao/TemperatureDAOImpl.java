@@ -73,13 +73,12 @@ public class TemperatureDAOImpl implements TemperatureDAO {
 
     /**
      *
-     * @return List of last 10 temperatures
+     * @return List of last 5 temperatures
      */
     public List<Temperature> findRecent() {
         ResultSet rs = null;
         try {
             rs = statement.executeQuery(SELECT_RECENT);
-            System.out.println("ResultSet looks like this: "+rs);
         }catch (SQLException e) {
             e.printStackTrace();
         }

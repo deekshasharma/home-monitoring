@@ -37,7 +37,7 @@ public class GetSensorData {
      * @return JSON of all temperatures for Graph
      */
     public String getTemperatureData() {
-        return (gson.toJson(temperatureDAO.findAll()));
+        return (gson.toJson(temperatureDAO.findRecent()));
     }
 
     /**
@@ -47,7 +47,11 @@ public class GetSensorData {
         return (gson.toJson(motionDAO.findAll()));
     }
 
+    /**
+     *
+     * @return JSON of all sounds for graph
+     */
     public String getSoundData() {
-        return (gson.toJson(soundDAO.findAll()));
+        return (gson.toJson(soundDAO.findRecent()));
     }
 }
