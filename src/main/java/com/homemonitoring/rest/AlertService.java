@@ -14,35 +14,30 @@ public class AlertService {
     private static AlertLogic alertLogic = new AlertLogic();
 
     @GET
-    @Path("{alertType}")
-    public Response sendAlert(@PathParam("alertType") String alertType){
+    @Path("temperature")
+    public Response sendAlert() {
         String response;
-        if (alertType.equalsIgnoreCase(ALERT_TEMPERATURE)){
-//            if (checkHeatAlert(moduleId))
-            response = alertLogic.sendAlert();
-//            {
-//                response = "You forgot to switch off some electronic appliance at home!";
-//            }
-        }else {
+            if (checkHeatAlert()) {
+                response = "You forgot to switch off some electronic appliance at home!";
+            }
+        else {
             response = "Everything is okay at Home ";
         }
-            return Response.status(Response.Status.OK).entity(response).build();
+        return Response.status(Response.Status.OK).entity(response).build();
     }
 
 
-
     /**
+     * Should heat alert be issued
      *
-     * @param moduleId
      * @return true if Heat alert should be sent
      */
-//    private boolean checkHeatAlert(String moduleId){
-//        AlertLogic alertLogic = new AlertLogic();
-//        if (alertLogic.sendHeatAlert(moduleId)){
-//            return true;
-//        }else {
-//            return false;
-//        }
-//    }
+    private boolean checkHeatAlert() {
+        if (alertLogic.sendHeatAlert()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

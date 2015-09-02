@@ -19,7 +19,7 @@ public class MotionDAOImpl implements MotionDAO {
     private Connection connection;
     private static final String MOTION_TABLE = "motion";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM " + MOTION_TABLE;
-    private static final String SELECT_RECENT = "SELECT * FROM " + MOTION_TABLE + " ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,1;";
+//    private static final String SELECT_RECENT = "SELECT * FROM " + MOTION_TABLE + " ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,1;";
     private DBConnection dbConnection = DBConnection.getInstance();
 
     public MotionDAOImpl() throws SQLException {
@@ -77,10 +77,12 @@ public class MotionDAOImpl implements MotionDAO {
      * Find the most recent Motion readings
      * @return List of Motion Objects from result set
      */
-    public List<Motion> findRecent() {
+    public List<Motion> findRecent(String moduleId) {
         ResultSet rs = null;
+        String select_recent_motion = "SELECT * FROM " + MOTION_TABLE +" WHERE "+DBAttributes.MODULE_ID.getColumnName()
+                +" = "+moduleId +" ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,1;";
         try {
-            rs = statement.executeQuery(SELECT_RECENT);
+            rs = statement.executeQuery(select_recent_motion);
         } catch (SQLException e) {
             e.printStackTrace();
         }

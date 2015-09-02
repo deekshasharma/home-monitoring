@@ -23,6 +23,6 @@ public interface MotionDAO {
      * Get the most recent motion readings
      * @return
      */
-    List<Motion> findRecent();
+    List<Motion> findRecent(String moduleId);
 
 }

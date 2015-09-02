@@ -35,15 +35,17 @@ public class AlertLogic {
 
 
 
-    public String sendAlert() {
-        return gson.toJson(temperatureDAO.findRecent());
-    }
+//    public String sendAlert() {
+//        return gson.toJson(temperatureDAO.findRecent());
+//    }
 
     /**
      * @return true if Heat Alert should be triggered and false otherwise
      */
     public boolean sendHeatAlert() {
-        if (isHeatAboveThreshold() && isNoMotionDetected()) {
+        List<Temperature> temperatures = temperatureDAO.findRecent();
+        String moduleId = temperatures.get(0).getModuleId();
+        if (isHeatAboveThreshold(temperatures) && isNoMotionDetected(moduleId)) {
             return true;
         }
         return false;
@@ -52,10 +54,10 @@ public class AlertLogic {
     /**
      * @return true if the last 5 temperature readings exceeds threshold
      */
-    private boolean isHeatAboveThreshold() {
-        List<Temperature> temperatures = temperatureDAO.findRecent();
+    private boolean isHeatAboveThreshold(List<Temperature> temperatures) {
+//        List<Temperature> temperatures = temperatureDAO.findRecent();
         if (CollectionUtils.isEmpty(temperatures)) {
-            throw new NullPointerException("No temperature readings are present in DB");
+            throw new NullPointerException("No temperature readings pulled from DataBase");
         } else {
             for (Temperature temperature : temperatures) {
                 if ((Integer.parseInt(temperature.getReading())) <= THRESHOLD_TEMPERATURE) {
@@ -69,8 +71,11 @@ public class AlertLogic {
     /**
      * @return true if no motion is detected at home
      */
-    private boolean isNoMotionDetected() {
-        List<Motion> motionReadings = motionDAO.findRecent();
+    private boolean isNoMotionDetected(String moduleId) {
+        List<Motion> motionReadings = motionDAO.findRecent(moduleId);
+        if (CollectionUtils.isEmpty(motionReadings)){
+            throw new NullPointerException("Motion Readings for "+moduleId+" not found in database");
+        }
         if ((Integer.parseInt(motionReadings.get(0).getReading()) == 0)){
             return true;
         }else

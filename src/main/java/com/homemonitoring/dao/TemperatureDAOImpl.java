@@ -16,7 +16,7 @@ public class TemperatureDAOImpl implements TemperatureDAO {
     private Connection connection;
     private static final String TEMP_TABLE = "temperature";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM " + TEMP_TABLE;
-    private static final String SELECT_RECENT = "SELECT * FROM "+TEMP_TABLE+ " ORDER BY "+ DBAttributes.CREATE_DATE.getColumnName()+" DESC LIMIT 0,2;";
+    private static final String SELECT_RECENT = "SELECT * FROM "+TEMP_TABLE+ " ORDER BY "+ DBAttributes.CREATE_DATE.getColumnName()+" DESC LIMIT 0,5;";
     private DBConnection dbConnection = DBConnection.getInstance();
 
     public TemperatureDAOImpl() throws SQLException {
