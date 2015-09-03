@@ -1,5 +1,6 @@
 package com.homemonitoring.business;
 
+import com.google.common.base.Preconditions;
 import com.homemonitoring.dao.*;
 
 import java.sql.SQLException;
@@ -36,13 +37,25 @@ public class SaveSensorData {
         }
     }
 
-    /**
+    /** Saves temperature readings to database
      * @param moduleId
      * @param temperatureReading
      */
     public void saveTemperatureReading(String moduleId, String temperatureReading) throws SQLException {
         temperatureDAO.insert(moduleId, temperatureReading);
     }
+
+
+    /**
+     *
+     * @param temperatureReading
+     * @return String form of Centigrade temperature reading
+     */
+//    private String toCentigrade(String temperatureReading){
+//        Preconditions.checkArgument(temperatureReading != null);
+//        int reading = Integer.parseInt(temperatureReading);
+//        return  Integer.toString((reading/10) - 40);
+//    }
 
     /**
      * @param moduleId

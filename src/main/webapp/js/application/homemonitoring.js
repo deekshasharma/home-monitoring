@@ -7,7 +7,8 @@ angular.module('homemonitoring', ['chart.js'])
     // temperature alert
     $scope.getTemperatureAlert = function() {
     // alert api url
-     var url = 'http://localhost:8080/homemonitoring/rest/alert/temperature'
+//     var url = 'http://localhost:8080/homemonitoring/rest/alert/temperature'
+     var url = '/homemonitoring/rest/alert/temperature'
      var data = {};
       $http.get(url).then(function(r){
          console.log('Alert Temp data: ' + r.data)
@@ -23,7 +24,8 @@ angular.module('homemonitoring', ['chart.js'])
     // sound alert
     $scope.getSoundAlert = function() {
     // alert api url
-     var url = 'http://localhost:8080/homemonitoring/rest/alert/sound'
+//     var url = 'http://localhost:8080/homemonitoring/rest/alert/sound'
+     var url = '/homemonitoring/rest/alert/sound'
      var data = {};
       $http.get(url).then(function(r){
          console.log('Alert Sound data: ' + r.data)
@@ -50,7 +52,8 @@ angular.module('homemonitoring', ['chart.js'])
     }
 
     $scope.getTemperatures = function() {
-        var url = 'http://localhost:8080/homemonitoring/rest/graph/temperature'
+//        var url = 'http://localhost:8080/homemonitoring/rest/graph/temperature'
+        var url = '/homemonitoring/rest/graph/temperature'
         var data = {};
          $http.get(url).then(function(r){
                     data = extractTemperatureReadings(r.data);
@@ -72,7 +75,8 @@ angular.module('homemonitoring', ['chart.js'])
 
     $scope.getSounds = function() {
          // this should come from sound api
-         var url = 'http://localhost:8080/homemonitoring/rest/graph/sound'
+//         var url = 'http://localhost:8080/homemonitoring/rest/graph/sound'
+         var url = '/homemonitoring/rest/graph/sound'
          var data = {};
          $http.get(url).then(function(r){
                     data = extractTemperatureReadings(r.data);

@@ -79,7 +79,7 @@ public class MotionDAOImpl implements MotionDAO {
     public List<Motion> findRecent(String moduleId) {
         ResultSet rs = null;
         String select_recent_motion = "SELECT * FROM " + MOTION_TABLE +" WHERE "+DBAttributes.MODULE_ID.getColumnName()
-                +" = "+moduleId +" ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,1;";
+                +" = "+ "'"+moduleId+"'" +" ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,1;";
         try {
             rs = statement.executeQuery(select_recent_motion);
         } catch (SQLException e) {
