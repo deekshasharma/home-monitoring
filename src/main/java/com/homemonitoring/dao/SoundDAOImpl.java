@@ -1,7 +1,6 @@
 package com.homemonitoring.dao;
 
 import com.homemonitoring.Attributes.DBAttributes;
-import com.homemonitoring.model.Motion;
 import com.homemonitoring.model.Sound;
 
 import java.sql.Connection;
@@ -16,8 +15,7 @@ public class SoundDAOImpl implements SoundDAO {
     private Statement statement;
     private Connection connection;
     private static final String SOUND_TABLE = "sound";
-    private static final String SELECT_ALL_QUERY = "SELECT * FROM " + SOUND_TABLE;
-    private static final String SELECT_RECENT = "SELECT * FROM " + SOUND_TABLE + " ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,5;";
+    private static final String SELECT_FOR_ALERT = "SELECT * FROM " + SOUND_TABLE + " ORDER BY " + DBAttributes.CREATE_DATE.getColumnName() + " DESC LIMIT 0,5;";
     private DBConnection dbConnection = DBConnection.getInstance();
 
     public SoundDAOImpl() throws SQLException {
@@ -39,15 +37,10 @@ public class SoundDAOImpl implements SoundDAO {
 
     @Override
     public List<Sound> findAll() {
-
-        ResultSet rs = null;
-        try {
-            rs = statement.executeQuery(SELECT_ALL_QUERY);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return getSoundFromResultSet(rs);
+        return null;
     }
+
+
 
     /**
      * Creates the list of Sound objects from the ResultSet
@@ -74,7 +67,7 @@ public class SoundDAOImpl implements SoundDAO {
     public List<Sound> findRecent() {
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery(SELECT_RECENT);
+            rs = statement.executeQuery(SELECT_FOR_ALERT);
         } catch (SQLException e) {
             e.printStackTrace();
         }

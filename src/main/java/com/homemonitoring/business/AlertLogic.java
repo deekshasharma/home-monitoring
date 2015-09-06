@@ -14,8 +14,8 @@ import java.util.List;
 
 public class AlertLogic {
 
-    private static final int THRESHOLD_TEMPERATURE = 100;
-    private static final int THRESHOLD_SOUND = 100;
+    private static final int THRESHOLD_TEMPERATURE = 800;
+    private static final int THRESHOLD_SOUND = 40;
 
     private static TemperatureDAO temperatureDAO;
     private static MotionDAO motionDAO;
